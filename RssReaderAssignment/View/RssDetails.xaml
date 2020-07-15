@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="RssReaderAssignment.View.RssDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RssReaderAssignment.View"
+             xmlns:ViewModel="clr-namespace:RssReaderAssignment.ViewModel" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="2"  Text="Search" Margin="484.5,30,176,509.5" Width="82" RenderTransformOrigin="0.969,0.382"/>
+            <TextBox Grid.Column="2" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" x:Name="TextSearch"  Margin="0,30,26,0"  VerticalAlignment="Top" Width="174" Height="20" />
+            <ListBox  Grid.Column="2" x:Name="ListBoxItems" BorderThickness="1" ScrollViewer.CanContentScroll="False"  ItemsSource="{Binding RssItems}" SelectedItem="{Binding SelectedRss, Mode=TwoWay}" HorizontalAlignment="Left" Margin="40.5,68,0,0" VerticalAlignment="Top" Width="676" Height="480" Background="#FFE4E3E4">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Width="740" Height="227">
+                            <Grid Width="430" HorizontalAlignment="Left" >
+                                <Border BorderThickness="1" BorderBrush="Black"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="1"/>
+                                <TextBlock Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" FontSize="15" Height="40" Text="{Binding Title}"></TextBlock>
+                                <TextBlock Margin="0,42,0,20" Height="160" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap" Text="{Binding Description}"></TextBlock>
+
+                                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Bottom"  x:Name="btnRemoveLink" IsEnabled="{Binding ElementName=ListBoxItems, Path=SelectedItems.Count}"
+                                        Command="{Binding DataContext.RemoveLink,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" 
+                                        Content="Remove from Favorites"   Height="20" />
+                                </TextBlock>
+
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom"  x:Name="btnOpenLink" IsEnabled="{Binding ElementName=ListBoxItems, Path=SelectedItems.Count}"
+                                        Command="{Binding DataContext.OpenLink,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" 
+                                        Content="Open Link"   Height="20" />
+
+                                <!--<Hyperlink NavigateUri="{Binding Link}" RequestNavigate="Hyperlink_RequestNavigate">To article</Hyperlink>-->
+                                </TextBlock>
+
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="btnAddLink"  IsEnabled="{Binding ElementName=ListBoxItems, Path=SelectedItems.Count}"
+                                        Command="{Binding DataContext.AddLink,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" 
+                                        Content="Add to Favorites"   Height="20"  />
+                                </TextBlock>
+                            </Grid>
+
+                            <Grid Width="310" HorizontalAlignment="Right" Height="220" VerticalAlignment="Top">
+                                <Image Source="{Binding ImagePath}"/>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="RssReaderAssignment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RssReaderAssignment"
+        xmlns:ViewModel="clr-namespace:RssReaderAssignment.ViewModel" 
+        xmlns:controls="clr-namespace:RssReaderAssignment.View"
+        mc:Ignorable="d"
+        
+        WindowStartupLocation="CenterScreen"
+        Title="Rss Reader" Height="600" Width="1000">
+    <Window.DataContext>
+        <ViewModel:RssViewModel/>
+    </Window.DataContext>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="100" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="3*" MinWidth="100" />
+            </Grid.ColumnDefinitions>
+            
+            <controls:RssView Grid.Row="2" Grid.Column="0"/>
+            <controls:RssDetails Grid.Row="2" Grid.Column="2"/>
+        </Grid>
+    </Grid>
+</Window>

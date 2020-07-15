@@ -1,0 +1,4 @@
+Building Apps for Windows;http://blogs.windows.com/buildingapps/feed;True
+Official Microsoft Blog;http://blogs.microsoft.com/feed;False
+Windows Blog;http://blogs.windows.com/feed;True
+Digital Photo Rev;http://www.dpreview.com/feeds/news.xml;False
